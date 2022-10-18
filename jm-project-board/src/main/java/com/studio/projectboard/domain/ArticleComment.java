@@ -1,5 +1,10 @@
 package com.studio.projectboard.domain;
 
+import lombok.Getter;
+import lombok.ToString;
+
+import javax.persistence.Index;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
 
 public class ArticleComment {
