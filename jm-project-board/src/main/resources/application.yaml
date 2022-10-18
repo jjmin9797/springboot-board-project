@@ -12,7 +12,7 @@ logging:
   level:
     com.studio.projectboard: debug
     org.springframework.web.servlet: debug
-    #org.hibernate.type.descriptor.sql.BasicBinder: trace
+    org.hibernate.type.descriptor.sql.BasicBinder: trace
 
 spring:
   #DB?? ??
@@ -23,11 +23,11 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     #??? ??? ??? ???
-    defer-datasource-initialization: true
+    #defer-datasource-initialization: true
     hibernate:
       #???? ddl?? ???. - ??
       ddl-auto: create
-    open-in-view: false
+
     #sql?? ??
     show-sql: true
     properties:
@@ -39,7 +39,7 @@ spring:
   #h2? ?? ????
   h2.console.enabled: false
   #??? ???? ?? ?? ?????. -> ??
-  sql.init.mode: always
+  #sql.init.mode: always
 
 #123
   #data.rest:

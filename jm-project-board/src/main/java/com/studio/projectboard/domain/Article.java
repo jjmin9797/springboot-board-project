@@ -45,17 +45,17 @@ public class Article {
     @LastModifiedDate
     private LocalDateTime modifiedAt; //수정일시
 
-    @LastModifiedBy @Column(nullable = false, length = 10000)
+    @LastModifiedBy @Column(nullable = false, length = 100)
     private String modifiedBy; //수정자
+
 
     protected Article() {}
 
-    public Article(String title, String content, String hashtag) {
+    private Article(String title, String content, String hashtag) {
         this.title = title;
         this.content = content;
         this.hashtag = hashtag;
     }
-
     public static Article of(String title, String content, String hashtag) {
         return new Article(title,content,hashtag);
     }
