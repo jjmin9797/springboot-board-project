@@ -1,49 +1,49 @@
-# ??? ?? ??? ??
+# 디버그 로그 활성화 취소
 debug: false
 
-#end ???? ?? ????.
+#end 포인트를 모두 보여준다.
 management:
   endpoints:
     web:
       exposure:
         include: "*"
-#?? ??? ???.
+#특정 로그만 볼거다.
 logging:
-  level:
-    com.studio.projectboard: debug
-    org.springframework.web.servlet: debug
-    org.hibernate.type.descriptor.sql.BasicBinder: trace
+    level:
+      com.studio.projectboard: debug
+      org.springframework.web.servlet: debug
+    #org.hibernate.type.descriptor.sql.BasicBinder: trace
 
 spring:
-  #DB?? ??
+  #DB연동 관련
   datasource:
     url: jdbc:mysql://localhost:3306/board
-    username: board-project-jm
+    username: jm
     password: wjdals@@97
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
-    #??? ??? ??? ???
-    #defer-datasource-initialization: true
+    #테스트 데이터 베이스 활성화
+    defer-datasource-initialization: true
     hibernate:
-      #???? ddl?? ???. - ??
+      #자동으로 ddl문을 만든다. - 생성
       ddl-auto: create
-
-    #sql?? ??
+    open-in-view: false
+    #sql구문 보기
     show-sql: true
     properties:
       hibernate:
-        #??? ??? ???? ???.
+        #이쁘게 한줄로 만들어줌 로그를.
         format_sql: true
-        #10?? ??? ??? ????.
+        #10개의 쿼리를 하나로 묶어준다.
         default_batch_fetch_size: 100
-  #h2? ?? ????
+  #h2웹 콘솔 비활성화
   h2.console.enabled: false
-  #??? ???? ?? ?? ?????. -> ??
-  #sql.init.mode: always
+  #테스트 데이터를 언제 작동 시킬것인가. -> 항상
+  sql.init.mode: always
 
-#123
-  #data.rest:
+    #123
+    #data.rest:
     #base-path: /api
-  #data:
+    #data:
     #rest:
-      #detection-strategy: annotated
+  #detection-strategy: annotated
