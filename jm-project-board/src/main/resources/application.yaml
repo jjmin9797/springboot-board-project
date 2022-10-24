@@ -41,9 +41,8 @@ spring:
   #테스트 데이터를 언제 작동 시킬것인가. -> 항상
   sql.init.mode: always
 
-    #123
-    #data.rest:
-    #base-path: /api
-    #data:
-    #rest:
-  #detection-strategy: annotated
+  data.rest:
+  data:
+    rest:
+      base-path: /api
+      detection-strategy: annotated
