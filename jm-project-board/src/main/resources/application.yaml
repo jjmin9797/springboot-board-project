@@ -18,7 +18,7 @@ spring:
   #DB연동 관련
   datasource:
     url: jdbc:mysql://localhost:3306/board
-    username: jm
+    username: board-project-jm
     password: wjdals@@97
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
