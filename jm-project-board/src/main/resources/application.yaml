@@ -40,7 +40,7 @@ spring:
   #h2웹 콘솔 비활성화
   h2.console.enabled: false
   #테스트 데이터를 언제 작동 시킬것인가. -> 항상
-  sql.init.mode: always
+  sql.init.mode: embedded
 
   data.rest:
   data:

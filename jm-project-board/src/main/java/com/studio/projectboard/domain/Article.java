@@ -11,23 +11,34 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Getter
-@ToString
+@ToString(callSuper = true)
 @Table(indexes = {
         @Index(columnList = "title"),
         @Index(columnList = "hashtag"),
         @Index(columnList = "createAt"),
         @Index(columnList = "createBy")
 })
-
 @Entity
 public class Article extends AuditingFields{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "userId")
+    @Setter
+    private UserAccount userAccount;
+
+    @OrderBy("createAt DESC")
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
+    @ToString.Exclude
+    private Set<ArticleComment> articleComments = new LinkedHashSet<>();
 
     @Setter @Column(nullable = false)
     private String title; //제목
@@ -38,18 +49,21 @@ public class Article extends AuditingFields{
     @Setter
     private String hashtag; //해시태그
 
-
+    public void setUserAccount(UserAccount userAccount) {
+        this.userAccount = userAccount;
+    }
 
 
     protected Article() {}
 
-    private Article(String title, String content, String hashtag) {
+    private Article(String title, String content, String hashtag, UserAccount userAccount) {
         this.title = title;
         this.content = content;
         this.hashtag = hashtag;
+        this.userAccount = userAccount;
     }
-    public static Article of(String title, String content, String hashtag) {
-        return new Article(title,content,hashtag);
+    public static Article of(String title, String content, String hashtag, UserAccount userAccount) {
+        return new Article(title,content,hashtag,userAccount);
     }
 
     @Override
