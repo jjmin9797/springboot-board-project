@@ -12,16 +12,18 @@ import java.util.Objects;
 @Getter
 @ToString(callSuper = true)
 @Table(indexes = {
+        @Index(columnList = "userId"),
         @Index(columnList = "email", unique = true),
-        @Index(columnList = "createAt"),
-        @Index(columnList = "createBy")})
+        @Index(columnList = "createdAt"),
+        @Index(columnList = "createdBy")})
 @Entity
 public class UserAccount extends AuditingFields{
 
     @Id
-    @Column(length = 50)
-    private String userId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    @Setter @Column(nullable = false, length = 50) private String userId;
     @Setter @Column(nullable = false) private String userPassword;
     @Setter @Column(length = 100) private String email;
     @Setter @Column(length = 100) private String nickname;
@@ -30,24 +32,29 @@ public class UserAccount extends AuditingFields{
     public UserAccount() {
     }
 
-    private UserAccount(String userId, String userPassword, String email, String nickname, String memo, String createdBy) {
+    private UserAccount(String userId, String userPassword, String email, String nickname, String memo) {
         this.userId = userId;
         this.userPassword = userPassword;
         this.email = email;
         this.nickname = nickname;
         this.memo = memo;
+    }
 
+    public static UserAccount of(String userId, String userPassword, String email, String nickname, String memo) {
+        return new UserAccount(userId, userPassword, email, nickname, memo);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof UserAccount that)) return false;
-        return this.getUserId() != null && this.getUserId().equals(that.getUserId());
+        if (!(o instanceof UserAccount userAccount)) return false;
+        return id != null && id.equals(userAccount.id);
     }
+
+
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.getUserId());
+        return Objects.hash(id);
     }
 }

@@ -20,8 +20,8 @@ import java.util.Set;
 @Table(indexes = {
         @Index(columnList = "title"),
         @Index(columnList = "hashtag"),
-        @Index(columnList = "createAt"),
-        @Index(columnList = "createBy")
+        @Index(columnList = "createdAt"),
+        @Index(columnList = "createdBy")
 })
 @Entity
 public class Article extends AuditingFields{
@@ -31,14 +31,13 @@ public class Article extends AuditingFields{
     private Long id;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "userId")
     @Setter
     private UserAccount userAccount;
 
-    @OrderBy("createAt DESC")
-    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     @ToString.Exclude
-    private Set<ArticleComment> articleComments = new LinkedHashSet<>();
+    @OrderBy("createdAt DESC")
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
+    private final Set<ArticleComment> articleComments = new LinkedHashSet<>();
 
     @Setter @Column(nullable = false)
     private String title; //제목
@@ -49,28 +48,24 @@ public class Article extends AuditingFields{
     @Setter
     private String hashtag; //해시태그
 
-    public void setUserAccount(UserAccount userAccount) {
-        this.userAccount = userAccount;
-    }
 
 
     protected Article() {}
 
-    private Article(String title, String content, String hashtag, UserAccount userAccount) {
+    private Article(UserAccount userAccount,String title, String content, String hashtag) {
         this.title = title;
         this.content = content;
         this.hashtag = hashtag;
         this.userAccount = userAccount;
     }
-    public static Article of(String title, String content, String hashtag, UserAccount userAccount) {
-        return new Article(title,content,hashtag,userAccount);
+    public static Article of(UserAccount userAccount,String title, String content, String hashtag) {
+        return new Article(userAccount,title,content,hashtag);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Article article = (Article) o;
+        if (!(o instanceof Article article)) return false;
         return id != null && id.equals(article.id);
     }
 

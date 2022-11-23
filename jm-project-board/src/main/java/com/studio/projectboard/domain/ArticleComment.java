@@ -17,8 +17,8 @@ import java.util.Objects;
 @ToString(callSuper = true)
 @Table(indexes = {
         @Index(columnList = "content"),
-        @Index(columnList = "createAt"),
-        @Index(columnList = "createBy")
+        @Index(columnList = "createdAt"),
+        @Index(columnList = "createdBy")
 })
 @Entity
 public class ArticleComment extends AuditingFields{
@@ -41,13 +41,13 @@ public class ArticleComment extends AuditingFields{
 
     protected ArticleComment() {}
 
-    private ArticleComment(Article article, String content,UserAccount userAccount) {
+    private ArticleComment(Article article,UserAccount userAccount, String content) {
         this.article = article;
         this.content = content;
         this.userAccount = userAccount;
     }
-    public static ArticleComment of(Article article, String content,UserAccount userAccount) {
-        return new ArticleComment(article,content,userAccount);
+    public static ArticleComment of(Article article, UserAccount userAccount,String content) {
+        return new ArticleComment(article,userAccount,content);
     }
 
     @Override

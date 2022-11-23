@@ -22,12 +22,14 @@ public class QUserAccount extends EntityPathBase<UserAccount> {
     public final QAuditingFields _super = new QAuditingFields(this);
 
     //inherited
-    public final DateTimePath<java.time.LocalDateTime> createAt = _super.createAt;
+    public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
 
     //inherited
-    public final StringPath createBy = _super.createBy;
+    public final StringPath createdBy = _super.createdBy;
 
     public final StringPath email = createString("email");
+
+    public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final StringPath memo = createString("memo");
 

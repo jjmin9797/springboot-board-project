@@ -1,6 +1,7 @@
 package com.studio.projectboard.controller;
 
 
+import com.studio.projectboard.domain.ArticleComment;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -40,4 +41,5 @@ public class DataRestTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.valueOf("application/hal+json")));
     }
+
 }
